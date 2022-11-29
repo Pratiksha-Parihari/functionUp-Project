@@ -1,11 +1,11 @@
 const express=require("express")
-const route=require("./route/router")
+const route=require("./route/route")
 const mongoose=require("mongoose")
 const app=express()
 app.use(express.json())
 
 
-mongoose.connect("mongodb+srv://Siddharth609:q8PCZ8BpcFz4-nc@cluster0.thktdho.mongodb.net/Project3",
+mongoose.connect("mongodb+srv://Pratiksha:y6paZ3tHuMOGl4Xw@cluster0.o0zvusb.mongodb.net/pratiksha341-db?retryWrites=true&w=majority",
 {useNewUrlParser:true})
 
 .then(()=>console.log("MongoDb is Connected"))

@@ -36,15 +36,14 @@ const bookSchema = new mongoose.Schema({
 
     subcategory:
     {
-        type: [String],
+        type: String,
         required: true
     },
 
     reviews:
     {
         type:Number,
-        default: 0,
-        comment: "Holds number of reviews of this book"
+        default: 0
     },
 
     deletedAt:
@@ -65,8 +64,8 @@ const bookSchema = new mongoose.Schema({
     },
 
 },
-  {timestamps: true}
-)
+  {timestamps: true})
 
-module.exports = mongoose.model("books", bookSchema)
+
+module.exports = mongoose.model("Book", bookSchema)
 
