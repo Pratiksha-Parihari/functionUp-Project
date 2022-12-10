@@ -14,9 +14,9 @@ router.post("/blogs",middleware.authentication,blogController.createBlog) //for 
 
 router.get("/filterBlogs",middleware.authentication,blogController.filterBlogs) //for fetching blogs 
 
-router.put("/blogs/:blogId",middleware.authentication,blogController.updateBlog) //for updating blogs
+router.put("/blogs/:blogId",middleware.authentication,middleware.authorisation,blogController.updateBlog) //for updating blogs
 
-router.delete("/blogs/:blogId",middleware.authentication,blogController.blogDeletionById) //for deletion of  blog with Id
+router.delete("/blogs/:blogId",middleware.authentication,middleware.authorisation,blogController.blogDeletionById) //for deletion of  blog with Id
 
 router.delete("/blogs",middleware.authentication,blogController.deleteBlog) //for deletion of  blog with query
 

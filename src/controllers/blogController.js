@@ -2,6 +2,8 @@ const blogModel = require("../models/blogModel")
 const Valid = require("../validations/validator")
 const { isValidObjectId } = require("mongoose")
 const authorModel = require("../models/authorModel")
+const mongoose=require("mongoose")
+
 
 
 //++++++++++++++++++++++++++++++++++++++++++  Blog  Creation  ++++++++++++++++++++++++++
@@ -87,7 +89,7 @@ const filterBlogs = async function (req, res) {
 
             const getDetail = await blogModel.find(obj)
             if (!getDetail) {
-                return res.status(400).send({ status: false, msg: "given data is invalid " })
+                return res.status(404).send({ status: false, msg: "given data is invalid " })
             }
             else {
                 return res.status(200).send({ status: true, data: getDetail })
@@ -125,9 +127,9 @@ const updateBlog = async function (req, res) {
         return res.status(404).send({ status:false, msg: "Blog is already deleted"})
        }
 
-          if(findBlog.authorId._id.toString()!== req.authorId){
-           return res.status(401).send({ status:false , msg: "Authorisation failed"})
-          }
+        //   if(findBlog.authorId._id.toString()!== req.authorId){
+        //    return res.status(401).send({ status:false , msg: "Authorisation failed"})
+        //   }
 
         const { title, body, tags, subcategory, category, isPublished } = requestBody
 
@@ -162,10 +164,10 @@ const blogDeletionById = async function (req, res) {
             return res.status(400).send({ status: false, msg: " id does not exist " })
 
         }
-          if( idExist.authorId._id !==req.authorId){
-              return res.status(401).send({ status: false, msg: " Authorisation failed" })
+        //   if( idExist.authorId._id !==req.authorId){
+        //       return res.status(401).send({ status: false, msg: " Authorisation failed" })
 
-          }
+        //   }
 
 
             const findingBlog = await blogModel.findOneAndUpdate({ _id: blogId }, { $set: { isDeleted: true, deletedAt: Date.now() } }, {new:true})
@@ -197,8 +199,11 @@ const deleteBlog = async function (req, res) {
             let subCategory = req.query.subCategory
             let isPublished = req.query.isPublished
 
-            // if (!isValidObjectId(authorId)) {
-            //     return res.status(400).send({ status: false, msg: " Pls provide Valid author Id" })
+            // if(authorId){
+            //     let decodedToken= req.token
+            //     if(decodedToken.authorId!==queryData.authorId){
+            //         return res.status(403).send({ status: false, msg: "unauthorised access" })
+            //     }
             // }
 
             let obj = {};
@@ -226,10 +231,10 @@ const deleteBlog = async function (req, res) {
         if(!data){
             return res.status(404).send({ status: false, msg: "The given data is Invalid or blog is already deleted" })
         }
-        if(data.authorId._id.toString()!== req.authorId){
-            return res.status(401).send({ status: false, msg: "Authorisation failed" })
+        //  if(data.authorId._id.toString()!== req.authorId){
+        //      return res.status(401).send({ status: false, msg: "Authorisation failed" })
 
-        }
+        //  }
 
         
           let afterDeletion=  await blogModel.updateMany({ obj }, { isDeleted: true, deletedAt: Date.now() },{ new:true } )
