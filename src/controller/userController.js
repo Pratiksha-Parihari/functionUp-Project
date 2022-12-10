@@ -21,6 +21,10 @@ const createUser = async function (req, res) {
     if (!Valid.isValid(name)) {
       return res.status(400).send({ status: false, msg: " Pls Provide name for user" });
     }
+    
+    if (!Valid.isValidName(name)) {
+      return res.status(400).send({ status: false, msg: " Pls Provide name in proper format" });
+    }
     if (!Valid.isValid(phone)) {
       return res.status(400).send({ status: false, msg: " Pls Provide phone number for user" });
     }
@@ -44,8 +48,10 @@ const createUser = async function (req, res) {
         });
     }
     //password regex
-
-    //address
+    if (!Valid.isValidPassword(password)) {
+      return res.status(400).send({ status: false, msg: "please provide password in proper format" });
+    }
+    
 
     //email already exist
     const emailAlreadyExist = await userModel.findOne({ email });
