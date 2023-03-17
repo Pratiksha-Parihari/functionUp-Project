@@ -151,10 +151,10 @@ const userLogin = async function (req, res) {
     let password = req.body.password;
 
     if (!Valid.isValid(email)) {
-      return res.status(404).send({ status: false, msg: "Pls provide email address" });
+      return res.status(400).send({ status: false, msg: "Pls provide email address" });
     }
     if (!Valid.isValidEmail(email)) {
-      return res.status(404).send({ status: false, msg: "Pls provide valid email address" });
+      return res.status(400).send({ status: false, msg: "Pls provide valid email address" });
     }
     
 
@@ -163,7 +163,7 @@ const userLogin = async function (req, res) {
       return res.status(401).send({ status:false, msg: "Invalid log in email"})
      }
      if (!Valid.isValid(password)) {
-      return res.status(404).send({ status: false, msg: "Pls provide password" });
+      return res.status(400).send({ status: false, msg: "Pls provide password" });
     }
      let checkPassword = await bcrypt.compare(password, userDetails.password)
     if (checkPassword) {
@@ -330,12 +330,5 @@ return res.status(200).send({ status: true, message: 'User profile updated', dat
 }
 
 }
-
-
-
-
-
-
-
 
 module.exports = { createUser,userLogin, getUser ,updateUserData};
