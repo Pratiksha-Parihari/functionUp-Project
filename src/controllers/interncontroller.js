@@ -6,13 +6,13 @@ const createintern= async (req,res)=>{
         data=req.body
        
         //check college register or not
-        let validCollage = await collegeModel.findOne({name:data.collegeName})
-        if (!validCollage) return res.status(404).send({ status: false, msg: "college is not register " })
+        let validCollege = await collegeModel.findOne({name:data.collegeName})
+        if (!validCollege) return res.status(404).send({ status: false, msg: "college is not register " })
        
         // set the college id into the data object and delete key collegename
-        let collageId=validCollage._id.toString()
-              data.collegeId = collageId
-        delete data.collegName
+        let collegeId=validCollege._id.toString()
+              data.collegeId = collegeId
+        delete data.collegeName
 
       //create the intern
     let creatintern= await internModel.create(data);
